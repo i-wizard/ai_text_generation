@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 
 from app.config import Config
+from app.utils.error_handlers import register_error_handlers
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -37,5 +38,7 @@ def create_app():
 
         app.register_blueprint(create_auth_blueprint(auth_service))
         app.register_blueprint(create_generate_blueprint(generated_text_service))
+
+        register_error_handlers(app)
 
     return app
