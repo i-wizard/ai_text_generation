@@ -10,7 +10,7 @@ def validate_request(schema_class):
             try:
                 data = schema_class(**request.get_json())
             except ValidationError as e:
-                return jsonify({"error": "Invalid input", "details": e.errors()}), 400
+                return jsonify({"error": "Invalid input", "details": e.errors()}), 422
 
             return func(data, *args, **kwargs)
         return wrapper

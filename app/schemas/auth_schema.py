@@ -5,10 +5,18 @@ class RegisterSchema(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
     password: str = Field(..., min_length=6, max_length=100)
 
+    def __init__(self, **data):
+        super().__init__(**data)
+        object.__setattr__(self, "username", self.username.lower())
+
 
 class LoginSchema(BaseModel):
     username: str
     password: str
+
+    def __init__(self, **data):
+        super().__init__(**data)
+        object.__setattr__(self, "username", self.username.lower())
 
 
 class RegistrationSuccessResponse(BaseModel):

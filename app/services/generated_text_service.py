@@ -19,7 +19,7 @@ class GeneratedTextService:
         user = self.user_repository.get_user_by_id(user_id)
         if not user:
             abort(404, description="User not found")
-        ai_provider = AITextGeneratorProviderFactory.create_provider(Config.AI_PROVIDER)
+        ai_provider = AITextGeneratorProviderFactory.get_provider(Config.AI_PROVIDER)
         ai_response = ai_provider.generate_text(prompt)
         generated_text = self.generated_text_repository.create_generated_text(
             user_id, prompt, ai_response
@@ -44,7 +44,7 @@ class GeneratedTextService:
         )
         if not generated_text:
             abort(404, description="Text not found")
-        ai_provider = AITextGeneratorProviderFactory.create_provider(Config.AI_PROVIDER)
+        ai_provider = AITextGeneratorProviderFactory.get_provider(Config.AI_PROVIDER)
         ai_response = ai_provider.generate_text(generated_text.prompt)
         return self.generated_text_repository.update_generated_text(
             text_id, user_id, ai_response
