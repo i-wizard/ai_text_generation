@@ -47,7 +47,7 @@ def test_generate_text_unauthorized(client):
 def test_generate_text_validation_without_prompt_failure(client, auth_header):
     response = client.post("/api/v1/text-generations/", json={}, headers=auth_header)
 
-    assert response.status_code == 400
+    assert response.status_code == 422
     data = response.get_json()
 
     assert "error" in data
@@ -60,7 +60,7 @@ def test_generate_text_validation_with_short_prompt_failure(client, auth_header)
         "/api/v1/text-generations/", json={"prompt": "two"}, headers=auth_header
     )
 
-    assert response.status_code == 400
+    assert response.status_code == 422
     data = response.get_json()
 
     assert "error" in data

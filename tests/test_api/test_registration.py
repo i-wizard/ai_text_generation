@@ -32,7 +32,7 @@ def test_register_duplicate_username(client):
 def test_register_invalid_input(client, payload, expected_error_field):
     response = client.post("/api/v1/auth/register", json=payload)
 
-    assert response.status_code == 400
+    assert response.status_code == 422
     data = response.get_json()
     assert "error" in data
     assert data["error"] == "Invalid input"
@@ -59,7 +59,7 @@ def test_short_password_or_username(
 ):
     response = client.post("/api/v1/auth/register", json=payload)
 
-    assert response.status_code == 400
+    assert response.status_code == 422
     data = response.get_json()
     assert "error" in data
     assert data["error"] == "Invalid input"

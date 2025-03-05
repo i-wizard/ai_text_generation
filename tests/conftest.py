@@ -31,7 +31,7 @@ def db_session(app):
 
 @pytest.fixture
 def user_factory(db_session):
-    def create_user(username, password):
+    def create_user(username="user1", password=generate_password_hash("password123")):
         hashed_password = generate_password_hash(password)
         user = User(username=username, password_hash=hashed_password)
         db_session.add(user)

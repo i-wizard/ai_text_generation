@@ -19,3 +19,7 @@ class UserRepository:
 
     def get_user_by_username(self, username: str) -> Optional[User]:
         return self.db_session.query(User).filter_by(username=username).first()
+
+    def delete_user(self, user: User) -> None:
+        self.db_session.delete(user)
+        self.db_session.commit()
